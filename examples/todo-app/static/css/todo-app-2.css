@@ -1,0 +1,44 @@
+.app2 {
+  min-width: 800px;
+  display: inline-block;
+}
+.btn,
+.input,
+.content {
+  margin: 5px;
+  color: white;
+  font-size: 16pt;
+  min-height: 40px;
+  min-width: 100px;
+  line-height: 40px;
+  border-radius: 2px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+.input,
+.content {
+  width: 400px;
+  text-align: left;
+  padding: 0px 10px 0px 10px;
+  background-color: steelblue;
+}
+.list {
+  overflow-y: scroll;
+  list-style-type: none;
+}
+.input {
+  color: rgb(0, 0, 0);
+  background-color: #5bd5fa;
+}
+.inline {
+  display: inline-block;
+}
+.btn {
+  background-color: rgb(151, 73, 44);
+}
+.title {
+  margin: 10px;
+  font-size: 32pt;
+  font-weight: bold;
+}
