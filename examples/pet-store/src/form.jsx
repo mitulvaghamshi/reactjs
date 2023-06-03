@@ -49,15 +49,18 @@ export const Form = (props) => {
     }));
   };
 
-  const isValid = () => {
-    return animal !== undefined && animal !== "" && description !== undefined &&
-      description !== "" && age !== undefined && age !== "" && age > 0 &&
-      price !== undefined && price !== "" && price >= 0;
-  };
+  const isValid = () =>
+    animal !== undefined && animal !== "" &&
+    description !== undefined && description !== "" &&
+    age !== undefined && age !== "" && age > 0 &&
+    price !== undefined && price !== "" && price >= 0;
 
   return (
-    <div>
-      <Button color={props.color} onClick={onDialog}>{props.children}</Button>
+    <>
+      <Button
+        color={props.color}
+        onClick={onDialog}>{props.children}
+      </Button>
       <Dialog
         open={visible}
         maxWidth="xs"
@@ -133,6 +136,6 @@ export const Form = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };

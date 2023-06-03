@@ -23,6 +23,7 @@ export const App = () => {
   const [pets, setPets] = useState([]);
   const [reload, setReload] = useState(true);
 
+  // Pagination controllers
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
 
@@ -51,9 +52,9 @@ export const App = () => {
   return (
     <Paper elevation={0}>
       <SearchAppBar onInput={onSearch} />
-      {reload ? <LinearProgress sx={{ mt: 3 }} /> : (
-        <div>
-          <Box sx={{ m: 3 }}>
+      {reload ? <LinearProgress /> : (
+        <>
+          <Box sx={{ my: 3, ml: 2 }}>
             <Form
               action="add"
               title="Add new pet"
@@ -98,7 +99,6 @@ export const App = () => {
                         <TableCell>No result found!</TableCell>
                       </TableRow>
                     )
-                    /* Source: https://mui.com/components/tables/#custom-pagination-options */
                     : pets.slice(
                       page * rowsPerPage,
                       page * rowsPerPage + rowsPerPage,
@@ -136,7 +136,7 @@ export const App = () => {
                               pet={pet}
                               color="error"
                               onSubmit={() => setReload(true)}
-                              title={`Delete: ${pet.animal}?`}
+                              title={`Deleting ${pet.animal}`}
                               desc="This action is permanent and can not be undone, are you sure want delete?"
                             >
                               <DeleteIcon />
@@ -147,13 +147,13 @@ export const App = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* Source: https://mui.com/components/tables/#custom-pagination-options */}
+            {/* https://mui.com/components/tables/#custom-pagination-options */}
             <TablePagination
               page={page}
               component="div"
               count={pets.length}
               rowsPerPage={rowsPerPage}
-              onPageChange={(_, page) => setPage(page)}
+              onPageChange={(e, page) => setPage(page)}
               rowsPerPageOptions={[3, 5, { value: pets.length, label: "All" }]}
               onRowsPerPageChange={(e) => {
                 setRowsPerPage(e.target.value);
@@ -161,7 +161,7 @@ export const App = () => {
               }}
             />
           </Paper>
-        </div>
+        </>
       )}
     </Paper>
   );

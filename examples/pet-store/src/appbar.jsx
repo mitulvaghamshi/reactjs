@@ -9,7 +9,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-/* Source: https://mui.com/components/app-bar/#app-bar-with-search-field */
+// https://mui.com/components/app-bar/#app-bar-with-search-field
 const Search = styled("div")(({ theme }) => ({
   width: "100%",
   marginLeft: 0,
