@@ -59,7 +59,9 @@ export const Form = (props) => {
     <>
       <Button
         color={props.color}
-        onClick={onDialog}>{props.children}
+        onClick={onDialog}
+      >
+        {props.children}
       </Button>
       <Dialog
         open={visible}

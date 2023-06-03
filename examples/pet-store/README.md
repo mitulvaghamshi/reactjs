@@ -1,7 +1,7 @@
 # Pet Inventory
 
-ReactJS app for managing Pet Inventory store.
-This app depends on [inventory api](./server/index.js) provider to store inventory data.
+ReactJS app for managing Pet Inventory store. This app depends on
+[inventory api](./server/index.js) provider to store inventory data.
 
 ## Install and Run
 
@@ -23,8 +23,6 @@ npm run server
 
 ## Preview
 
-![](previews/preview_home.png)
-![](previews/preview_add.png)
-![](previews/preview_edit.png)
-![](previews/preview_delete.png)
+![](previews/preview_home.png) ![](previews/preview_add.png)
+![](previews/preview_edit.png) ![](previews/preview_delete.png)
 ![](previews/preview_search.png)

@@ -18,6 +18,32 @@
 | No. | Examples                                                          |
 | --- | ----------------------------------------------------------------- |
 | 1   | [Todo App - ReactJS + Deno.js](./examples/todo-app/)              |
-| 2   | [Pet Inventory App - API + MUI](./examples/pet-store/)            |
-| 3   | [Shopping Bazar - API + React Native](./examples/shopping-bazar/) |
-| 4   | [API Server - NodeJS](./examples/api-server/)                     |
+| 2   | [API Server - NodeJS](./examples/api-server/)                     |
+| 3   | [Pet Inventory App - API + MUI](./examples/pet-store/)            |
+| 4   | [Shopping Bazar - API + React Native](./examples/shopping-bazar/) |
+
+# Screenshots
+
+## Todo App
+
+![](examples/todo-app/preview.png)
+
+## Api Server
+
+![](examples/api-server/preview.jpeg)
+
+## Pet Inventory
+
+![](examples/pet-store/previews/preview_home.png)
+![](examples/pet-store/previews/preview_add.png)
+![](examples/pet-store/previews/preview_edit.png)
+![](examples/pet-store/previews/preview_delete.png)
+![](examples/pet-store/previews/preview_search.png)
+
+## Shopping Bazar
+
+![](examples/shopping-bazar/previews/preview_login.png)
+![](examples/shopping-bazar/previews/preview_home.png)
+![](examples/shopping-bazar/previews/preview_home_2.png)
+![](examples/shopping-bazar/previews/preview_details.png)
+![](examples/shopping-bazar/previews/preview_cart.png)
