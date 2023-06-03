@@ -1,6 +1,6 @@
 import { React, react } from "../deps.ts";
 
-const TodoApp2 = (props) => {
+const TodoApp2 = (props: { defaults: string[] }) => {
   const [input, setInput] = react.useState("");
   const [todo, setTodo] = react.useState(Item());
   const [list, setList] = react.useState(new Map());
@@ -9,25 +9,25 @@ const TodoApp2 = (props) => {
 
   react.useEffect(() => {
     const temp = new Map();
-    props.defaults.forEach((value) => {
+    props.defaults.forEach((value: string) => {
       const id: number = getId();
       temp.set(id, Item(id, value));
     });
     setList(temp);
   }, [props.defaults]);
 
-  const deleteAll = (event) => {
+  const deleteAll = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setList(new Map());
   };
 
-  const onDelete = (id) => {
+  const onDelete = (id: number) => {
     const temp = new Map(list);
     temp.delete(id);
     setList(temp);
   };
 
-  const onSave = (event) => {
+  const onSave = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (input !== "") {
       const temp = new Map(list);
@@ -56,15 +56,14 @@ const TodoApp2 = (props) => {
 
   return (
     <div className="app2">
-      <label className="title">iTodo App</label>
-      <br />
-      <br />
+      <label className="title">xTodo App</label>
       <form>
         <input
           type="text"
           value={input}
           className="input"
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e: { target: { value: string } }) =>
+            setInput(e.target.value)}
         />
         <button className="inline btn" onClick={onSave}>
           {todo.value === "" ? "ADD" : "SAVE"}
@@ -78,7 +77,10 @@ const TodoApp2 = (props) => {
   );
 };
 
-const Item = (id = -1, value = "") => ({ id, value });
+const Item = (id = -1, value = ""): { id: number; value: string } => ({
+  id,
+  value,
+});
 
 // Maximum 1000 unique items.
 const getId = () => Math.round(Math.random() * 1000);

@@ -9,3 +9,9 @@ body {
 hr {
   margin: 30px;
 }
+
+.title {
+  margin-bottom: 20px;
+  font-size: 32pt;
+  font-weight: bold;
+}

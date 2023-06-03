@@ -1,12 +1,14 @@
 .app1 {
-  min-width: 800px;
+  min-width: 600px;
   display: inline-block;
 }
+
 .Todo-list {
   overflow: hidden;
   overflow-y: scroll;
   list-style-type: none;
 }
+
 .List-item,
 .Todo-view {
   margin: 10px;
@@ -17,58 +19,67 @@
   list-style-type: none;
   vertical-align: middle;
 }
+
 .Item-thumb,
 .Action-btn,
 .Item-content,
 .Input-element {
   width: 50px;
-  height: 50px;
+  height: 40px;
   color: white;
   font-size: 14pt;
-  line-height: 50px;
+  line-height: 40px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
   border-radius: 10px 0px 0px 10px;
-  background-color: rgba(39, 89, 252, 0.8);
+  background-color: #127cff;
   backdrop-filter: saturate(180%) blur(20px);
 }
+
 .Item-content,
 .Input-element {
+  width: 500px;
   border: 0px;
   outline: none;
   text-align: left;
   border-radius: 0px;
-  width: calc(100% - 170px);
   padding: 0px 10px 0px 10px;
 }
+
 .Input-element {
   color: #000;
   border-radius: 10px;
-  width: calc(100% - 110px);
-  background-color: rgb(249, 227, 194);
+  background-color: #4febff;
 }
+
 .Item-controls {
   display: inline-block;
 }
+
+.Item-thumb {
+  border-right: 2px solid #ffffff;
+}
+
 .Action-btn {
   border: 0;
   border-left: 2px solid #ffffff;
 }
+
 .Delete {
   border-radius: 0px 10px 10px 0px;
 }
+
 .Edit {
   border-radius: 0px;
 }
+
 .Add {
   width: 100px;
   color: #ffffff;
   margin-left: 10px;
   padding: 0px 15px;
+  border: 0;
   border-radius: 10px;
-  background-color: darksalmon;
-}
-.Input-form {
-  padding: 10px;
+  background-color: #127cff;
 }

@@ -1,16 +1,23 @@
 import { React, react } from "../deps.ts";
 
-const TodoApp1 = (props) => {
+const Item = (id = -1, value = ""): { id: number; value: string } => ({
+  id,
+  value,
+});
+
+const TodoApp1 = (props: { initialTodo: { id: number; value: string }[] }) => {
   const [todoList, updateList] = react.useState(new Map());
   const [todo, onSelect] = react.useState(Item());
 
   react.useEffect(() => {
     const tempList = new Map();
-    props.initialTodo.forEach((todo) => tempList.set(todo.id, todo));
+    props.initialTodo.forEach((todo: { id: number }) =>
+      tempList.set(todo.id, todo)
+    );
     updateList(tempList);
   }, [props.initialTodo]);
 
-  const handleClick = (action, todo) => {
+  const handleClick = (action: string, todo: { id: number; value: string }) => {
     const tempList = new Map(todoList);
     if (action === "SET") {
       tempList.set(todo.id, todo);
@@ -22,7 +29,13 @@ const TodoApp1 = (props) => {
     onSelect(action === "EDIT" ? todo : Item());
   };
 
-  const listItems: any[] = [];
+  const listItems: {
+    key: string;
+    index: number;
+    todo: { id: number; value: string };
+    isActive: boolean;
+    onClick: (action: string, todo: { id: number; value: string }) => void;
+  }[] = [];
   let index = 1;
   for (const key of todoList.keys()) {
     const item = todoList.get(key);
@@ -31,24 +44,30 @@ const TodoApp1 = (props) => {
         key={key}
         todo={item}
         index={index++}
-        onClick={handleClick}
         isActive={item.id === todo.id}
+        onClick={handleClick}
       />,
     );
   }
 
   return (
     <div className="app1">
-      <label className="title">xTodo App</label>
-      <br />
-      <br />
+      <label className="title">iTodo App</label>
       <Form onSubmit={handleClick} todo={todo} />
       <div className="Todo-list">{listItems}</div>
     </div>
   );
 };
 
-const ListItem = (props) => (
+const ListItem = (
+  props: {
+    key: string;
+    index: number;
+    todo: { id: number; value: string };
+    isActive: boolean;
+    onClick: (action: string, todo: { id: number; value: string }) => void;
+  },
+) => (
   <div>
     <li className="List-item">
       <label
@@ -81,12 +100,17 @@ const ListItem = (props) => (
   </div>
 );
 
-const Form = (props) => {
+const Form = (
+  props: {
+    todo: { id: number; value: string };
+    onSubmit: (action: string, todo: { id: number; value: string }) => void;
+  },
+) => {
   const [action, setAction] = react.useState("ADD");
   const [input, setInput] = react.useState("");
   const [id, setId] = react.useState(0);
 
-  const handleClick = (event) => {
+  const handleClick = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (input !== "") {
       let xId = id;
@@ -113,7 +137,8 @@ const Form = (props) => {
         autoFocus
         placeholder="What to do...?"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e: { target: { value: string } }) =>
+          setInput(e.target.value)}
       />
       <div className="Item-controls">
         <button className="Action-btn Add" onClick={handleClick}>
@@ -123,8 +148,6 @@ const Form = (props) => {
     </form>
   );
 };
-
-const Item = (id = -1, value = "") => ({ id, value });
 
 export default function App1() {
   return (
