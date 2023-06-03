@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import ListItem from "./list-item";
+import { cartItemStyles as styles } from "../styles/styles";
 
 /**
  * Represents a cart with multiple items.
@@ -9,7 +10,7 @@ import ListItem from "./list-item";
 export default function CartItem(props) {
   const [cartItem, setCartItem] = useState([]);
   const [loading, setLoading] = useState(true);
-  const isMounted = useRef(true); // handle component mounting state
+  const mounted = useRef(true); // handle component mounting state
 
   // retrieve individual product in cart
   const getProduct = async (id) => {
@@ -35,14 +36,14 @@ export default function CartItem(props) {
 
   useEffect(() => {
     const products = props.item.products;
-    new Promise.resolve(getCartProducts(products)).then((value) => {
-      if (isMounted.current) {
+    Promise.resolve(getCartProducts(products)).then((value) => {
+      if (mounted.current) {
         setCartItem(value);
         setLoading(false);
       }
     });
     return () => {
-      isMounted.current = false;
+      mounted.current = false;
     };
   }, [props.item]);
 
@@ -56,5 +57,3 @@ export default function CartItem(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({ item: { flex: 1 } });

@@ -4,12 +4,12 @@ import {
   Alert,
   FlatList,
   Platform,
-  StyleSheet,
   Text,
   TouchableHighlight,
   View,
 } from "react-native";
 import CartItem from "./cart-item";
+import { checkoutStyles as styles } from "../styles/styles";
 
 export default function Checkout({ navigation, route }) {
   const [cartItems, setCartItems] = useState([]);
@@ -17,17 +17,18 @@ export default function Checkout({ navigation, route }) {
 
   /**
    * Warning: Can't perform a React state update on an unmounted component.
+   *
+   * Example event: If user logout while application is still fetching the data,
+   * this resolved by watching component's mounting state.
+   *
    * This is a no-op, but it indicates a memory leak in your application.
    * To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-   *
-   * Warning cause: If user logout while application is still fetching the data,
-   * resolved by watching component's mounting state.
    */
-  const isMounted = useRef(true);
+  const mounted = useRef(true);
 
   /**
    * The API is completely stateless, provides static data
-   * by simulation fake CRUD operation.
+   * by simulating fake CRUD operations.
    * Application does not contain actual user, therefore the same user
    * with the ID of 1 is used to retrieve cart information.
    */
@@ -35,8 +36,8 @@ export default function Checkout({ navigation, route }) {
     try {
       const responce = await fetch("https://fakestoreapi.com/carts/user/1");
       const result = await responce.json();
-      // do not update state if component is unmounted...
-      if (isMounted.current) {
+      // Do not update state if component is unmounted...
+      if (mounted.current) {
         setCartItems(result);
       }
     } catch (e) {
@@ -62,7 +63,7 @@ export default function Checkout({ navigation, route }) {
     }
   };
 
-  const checkoutAlert = () => {
+  const showCheckoutAlert = () => {
     if (Platform.OS === "web") {
       alert(
         "Thank you for shopping with us! Please tell us about your experience by providing a review...",
@@ -76,7 +77,7 @@ export default function Checkout({ navigation, route }) {
     }
   };
 
-  const removeAlert = (id) => {
+  const showRemoveAlert = (id) => {
     if (Platform.OS === "web") {
       alert("CArt deleted successfully...!");
       navigation.pop();
@@ -104,7 +105,7 @@ export default function Checkout({ navigation, route }) {
     // return cleanup function to mark component unmounted
     // when user use back navigation or try to logout.
     return () => {
-      isMounted.current = false;
+      mounted.current = false;
     };
   }, []);
 
@@ -125,14 +126,14 @@ export default function Checkout({ navigation, route }) {
                 <View style={styles.buttonBar}>
                   <TouchableHighlight
                     style={styles.checkoutButton}
-                    onPress={checkoutAlert}
+                    onPress={showCheckoutAlert}
                   >
                     <Text style={{ color: "black" }}>Checkout</Text>
                   </TouchableHighlight>
                   <TouchableHighlight
                     style={[styles.checkoutButton, styles.clearButton]}
                     onPress={() => {
-                      removeAlert(item.id);
+                      showRemoveAlert(item.id);
                     }}
                   >
                     <Text style={{ color: "black" }}>Clear All</Text>
@@ -146,42 +147,3 @@ export default function Checkout({ navigation, route }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "lavenderblush",
-  },
-  date: {
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    marginVertical: 5,
-    borderColor: "gray",
-    backgroundColor: "aliceblue",
-  },
-  list: {
-    flex: 1,
-    margin: 16,
-    marginHorizontal: 10,
-    paddingHorizontal: 5,
-  },
-  buttonBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  checkoutButton: {
-    flex: 1,
-    height: 40,
-    maxWidth: "48%",
-    borderRadius: 5,
-    marginVertical: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "palegreen",
-  },
-  clearButton: {
-    backgroundColor: "lightsalmon",
-  },
-});

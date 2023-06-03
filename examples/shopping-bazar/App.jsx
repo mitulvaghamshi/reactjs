@@ -1,17 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import {
-  Alert,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { Alert, Platform, Text, TouchableOpacity } from "react-native";
 import Checkout from "./src/checkout";
 import Home from "./src/home";
 import Login from "./src/login";
 import ProductDetail from "./src/product-detail";
+import { appStyles as styles } from "./styles/styles";
 
 // Navigation system for mobile and web with navigation history.
 const Stack = createNativeStackNavigator();
@@ -41,8 +36,11 @@ export default function App() {
             title: "Login",
             headerBackVisible: false,
             headerRight: () => (
-              <TouchableOpacity onPress={apiInfo}>
-                <Text style={styles.trialing}>Notice</Text>
+              <TouchableOpacity
+                style={{ marginHorizontal: 16 }}
+                onPress={apiInfo}
+              >
+                <Text style={styles.appBarButton}>Notice</Text>
               </TouchableOpacity>
             ),
           }}
@@ -59,7 +57,7 @@ export default function App() {
                   navigation.navigate("CartDetail");
                 }}
               >
-                <Text style={styles.trialing}>Cart</Text>
+                <Text style={styles.appBarButton}>Cart</Text>
               </TouchableOpacity>
             ),
           })}
@@ -78,7 +76,7 @@ export default function App() {
               <TouchableOpacity
                 onPress={navigation.popToTop}
               >
-                <Text style={styles.trialing}>Logout</Text>
+                <Text style={styles.appBarButton}>Logout</Text>
               </TouchableOpacity>
             ),
           })}
@@ -87,14 +85,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  trialing: {
-    fontSize: 16,
-    borderRadius: 5,
-    fontWeight: "bold",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    backgroundColor: "white",
-  },
-});

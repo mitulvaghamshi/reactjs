@@ -3,13 +3,13 @@ import {
   ActivityIndicator,
   FlatList,
   SafeAreaView,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import ListItem from "./list-item";
+import { homeStyles as styles } from "../styles/styles";
 
 export default function Home({ navigation }) {
   const [productList, setProductList] = useState([]);
@@ -20,8 +20,8 @@ export default function Home({ navigation }) {
   const [category, setCategory] = useState("All Products");
 
   useEffect(() => {
-    // Get all the (4) categories
-    const getCategories = async () => {
+    // Get all the categories (4)
+    (async () => {
       try {
         const responce = await fetch(
           "https://fakestoreapi.com/products/categories",
@@ -32,22 +32,22 @@ export default function Home({ navigation }) {
       } catch (e) {
         console.log(e);
       }
-    };
-    getCategories();
+    })();
   }, []);
 
   useEffect(() => {
     /**
      * JSON Parse error: Unrecognized token'<'
-     * Using response.json() in the event of 404 or 500 error.
+     * Using `response.json()` in the event of 404 or 500 error.
      * Stack Overflow: https://is.gd/9ITO6V
      */
-    const getProducts = async () => {
+    (async () => {
       try {
+        const categoryFilter = category === "All Products"
+          ? ""
+          : "category/" + category;
         const responce = await fetch(
-          `https://fakestoreapi.com/products/${
-            category === "All Products" ? "" : "category/" + category
-          }`,
+          `https://fakestoreapi.com/products/${categoryFilter}`,
         );
         const result = await responce.json();
         setProductList(result);
@@ -56,8 +56,7 @@ export default function Home({ navigation }) {
       } finally {
         setLoading(false);
       }
-    };
-    getProducts();
+    })();
   }, [category]);
 
   return (
@@ -98,7 +97,7 @@ export default function Home({ navigation }) {
           <FlatList
             data={productList}
             style={styles.list}
-            keyExtractor={({ id }, _) => id}
+            keyExtractor={({ id }, index) => id}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
@@ -114,56 +113,3 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 5,
-    backgroundColor: "lavenderblush",
-  },
-  body: {
-    flex: 1,
-    marginTop: 10,
-  },
-  searchBox: {
-    height: 40,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: "grey",
-    marginHorizontal: 15,
-    marginVertical: 5,
-  },
-  list: {
-    flex: 1,
-    marginTop: 20,
-    marginHorizontal: 10,
-    paddingHorizontal: 5,
-  },
-  row: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    marginHorizontal: 10,
-    justifyContent: "space-between",
-  },
-  button: {
-    flex: 1,
-    margin: 5,
-    padding: 5,
-    minWidth: "40%",
-    borderRadius: 5,
-    alignItems: "center",
-    backgroundColor: "pink",
-  },
-  selected: {
-    backgroundColor: "black",
-  },
-  buttonLabel: {
-    fontWeight: "500",
-    textTransform: "capitalize",
-  },
-  selectedLabel: {
-    color: "white",
-    fontWeight: "700",
-  },
-});

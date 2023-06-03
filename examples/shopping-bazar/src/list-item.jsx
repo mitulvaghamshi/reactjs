@@ -3,15 +3,15 @@ import {
   Alert,
   Image,
   Platform,
-  StyleSheet,
   Text,
   TouchableHighlight,
   View,
 } from "react-native";
+import { listItemStyles as styles } from "../styles/styles";
 
 export default function ListItem(props) {
   /**
-   * No product is added in the database,
+   * Fake API: No product is added in the database,
    * return with random non-existing product ID.
    */
   const addToCart = async () => {
@@ -19,7 +19,7 @@ export default function ListItem(props) {
       method: "POST",
       body: JSON.stringify({
         userId: 5,
-        date: "2020 - 02 - 03",
+        date: "2020-02-03",
         products: [
           { productId: 5, quantity: 1 },
           { productId: 1, quantity: 5 },
@@ -28,11 +28,11 @@ export default function ListItem(props) {
     });
     const result = await response.json();
     if (result) {
-      addAlert();
+      showItemAddedAlert();
     }
   };
 
-  const addAlert = () => {
+  const showItemAddedAlert = () => {
     if (Platform.OS === "web") {
       alert(`${props.product.title} added successfully...!`);
     } else {
@@ -97,50 +97,3 @@ export default function ListItem(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    marginVertical: 5,
-    borderColor: "gray",
-    flexDirection: "row",
-    backgroundColor: "ghostwhite",
-    justifyContent: "space-between",
-  },
-  image: {
-    width: "30%",
-    borderRadius: 5,
-    resizeMode: "contain",
-  },
-  labelContainer: {
-    width: "65%",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  title: {
-    display: "flex",
-    fontWeight: "bold",
-  },
-  rating: {
-    color: "coral",
-    fontWeight: "800",
-  },
-  review: {
-    color: "grey",
-    fontWeight: "800",
-  },
-  price: {
-    color: "green",
-    fontWeight: "800",
-  },
-  addButton: {
-    height: 30,
-    color: "black",
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "peachpuff",
-  },
-});
