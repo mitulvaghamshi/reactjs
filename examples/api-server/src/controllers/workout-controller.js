@@ -3,8 +3,10 @@ const workoutService = require("../services/workout-service");
 const getAllWorkouts = (req, res) => {
   try {
     const { mode } = req.query;
-    const allWorkouts = workoutService.getAllWorkouts({ mode });
-    res.send({ status: "OK", data: allWorkouts });
+    res.send({
+      status: "OK",
+      data: workoutService.getAllWorkouts({ mode }),
+    });
   } catch (error) {
     res.status(error?.status || 500).send({
       status: "FAILED",
@@ -22,8 +24,10 @@ const getWorkout = (req, res) => {
     });
   }
   try {
-    const workout = workoutService.getWorkout(workoutId);
-    res.send({ status: "OK", data: workout });
+    res.send({
+      status: "OK",
+      data: workoutService.getWorkout(workoutId),
+    });
   } catch (error) {
     res.status(error?.status || 500).send({
       status: "FAILED",
@@ -55,8 +59,10 @@ const createWorkout = (req, res) => {
     trainerTips: body.trainerTips,
   };
   try {
-    const createdWorkout = workoutService.createWorkout(newWorkout);
-    res.status(201).send({ status: "OK", data: createdWorkout });
+    res.status(201).send({
+      status: "OK",
+      data: workoutService.createWorkout(newWorkout),
+    });
   } catch (error) {
     res.status(error?.status || 500).send({
       status: "FAILED",
@@ -74,8 +80,10 @@ const updateWorkout = (req, res) => {
     });
   }
   try {
-    const updatedWorkout = workoutService.updateWorkout(workoutId, body);
-    res.send({ status: "OK", data: updatedWorkout });
+    res.send({
+      status: "OK",
+      data: workoutService.updateWorkout(workoutId, body),
+    });
   } catch (error) {
     res.status(error?.status || 500).send({
       status: "FAILED",

@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 // Query: curl -i http://localhost:3001/api/pets
 const getAllPets = (req, res) => {
-  console.log('Get all request');
+  console.log("Get all request");
   db.all(
     "SELECT rowid as id, animal, description, age, price FROM Inventory",
     (err, result) => {
@@ -23,9 +23,9 @@ const getAllPets = (req, res) => {
 
 // Search: curl -i http://localhost:3001/api/search?term=dog
 const searchPet = (req, res) => {
-  console.log('Search request');
+  console.log("Search request");
   if (req.query.term == null) {
-    res.json({ status: 'error', message: 'search term is undefined' });
+    res.json({ status: "error", message: "search term is undefined" });
   } else {
     const term = req.query.term;
     db.all(
@@ -43,9 +43,9 @@ const searchPet = (req, res) => {
 
 // Query: curl -i http://localhost:3001/api/1
 const getPet = (req, res) => {
-  console.log('Get request');
+  console.log("Get request");
   if (req.params.id == null) {
-    res.json({ status: 'error', message: 'data is undefined' });
+    res.json({ status: "error", message: "data is undefined" });
   } else {
     db.all(
       `SELECT rowid as id, animal, description, age, price FROM Inventory WHERE rowid = ${req.params.id}`,
@@ -62,11 +62,11 @@ const getPet = (req, res) => {
 
 // Insert: curl -i -X POST http://localhost:3001/api -H 'Content-Type: application/json' -d '{"animal":"Elephant", "description":"A giant and heavy creature", "age":250, "price":250000}'
 const insertPet = (req, res) => {
-  console.log('Insert request');
+  console.log("Insert request");
   if (typeof req.body == undefined) {
-    res.json({ status: 'error', message: 'data is undefined' });
+    res.json({ status: "error", message: "data is undefined" });
   } else {
-    const { body: { animal, description, age, price } } = req
+    const { body: { animal, description, age, price } } = req;
     db.run(
       "INSERT INTO Inventory(animal,description,age,price) VALUES (?,?,?,?)",
       [animal, description, age, price],
@@ -83,9 +83,9 @@ const insertPet = (req, res) => {
 
 // Update: curl -i -X PATCH http://localhost:3001/api/1 -H 'Content-Type: application/json' -d '{"animal":"Elephant", "description":"A giant and heavy creature", "age":250, "price":250000}'
 const updatePet = (req, res) => {
-  console.log('Update request');
+  console.log("Update request");
   if (typeof req.body == undefined || req.params.id == null) {
-    res.json({ status: 'error', message: 'id is undefined' });
+    res.json({ status: "error", message: "id is undefined" });
   } else {
     const { body: { animal, description, age, price } } = req;
     db.run(
@@ -104,46 +104,45 @@ const updatePet = (req, res) => {
 
 // Delete: curl -i -X DELETE http://localhost:3001/api/1
 const deletePet = (req, res) => {
-  console.log('Delete request');
+  console.log("Delete request");
   if (req.params.id == null) {
-    res.json({ status: 'error', message: 'data is undefined' });
+    res.json({ status: "error", message: "data is undefined" });
   } else {
-    db.run("DELETE FROM Inventory WHERE rowid=?", [parseInt(req.params.id)], (err, _) => {
-      if (err) {
-        res.json({ "error": "Could not delete animal" });
-      } else {
-        res.json({ "status": "Delete animal successful" });
-      }
-    });
+    db.run(
+      "DELETE FROM Inventory WHERE rowid=?",
+      [parseInt(req.params.id)],
+      (err, _) => {
+        if (err) {
+          res.json({ "error": "Could not delete animal" });
+        } else {
+          res.json({ "status": "Delete animal successful" });
+        }
+      },
+    );
   }
 };
 
-const initDB = () => {
+(() => {
   db.serialize(() => {
     db.run("DROP TABLE IF EXISTS Inventory");
     db.run(
       "CREATE TABLE Inventory (animal TEXT, description TEXT, age INTEGER, price REAL)",
     );
-
     const stmt = db.prepare("INSERT INTO Inventory VALUES (?,?,?,?)");
     stmt.run("Dog", "Wags tail when happy", "2", "250.00");
     stmt.run("Cat", "Black colour, friendly with kids", "3", "50.00");
     stmt.run("Love Bird", "Blue with some yellow", "2", "100.00");
     stmt.finalize();
   });
-};
-
-initDB();
+})();
 
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
+app.get("/", (_, res) => res.send("<h2>Welcome to Pet Inventory API</h2>"));
 app.get("/api/pets", getAllPets);
 app.get("/api/search", searchPet);
 app.get("/api/:id", getPet);
 app.post("/api", insertPet);
 app.patch("/api/:id", updatePet);
 app.delete("/api/:id", deletePet);
-app.listen(
-  PORT,
-  () => console.log(`API Service listening at: http://[::1]:${PORT}`),
-);
+app.listen(PORT, () => console.log(`API listening at: http://[::1]:${PORT}`));

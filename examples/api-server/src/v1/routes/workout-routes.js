@@ -49,18 +49,12 @@ const cache = apicache.middleware;
  *                       type: string
  *                       example: "Some error message"
  */
-router.get("/", cache("2 minutes"), workoutController.getAllWorkouts);
-// GET
-router.get("/:workoutId", workoutController.getWorkout);
-// POST
-router.post("/", workoutController.createWorkout);
-// PATCH
-router.patch("/:workoutId", workoutController.updateWorkout);
-// DELETE
+router.get("/", cache("2 minutes"), workoutController.getAllWorkouts); // GET all workouts
+router.get("/:workoutId", workoutController.getWorkout); // POST a workout
+router.post("/", workoutController.createWorkout); // PATCH a workout
+router.patch("/:workoutId", workoutController.updateWorkout); // DELETE a workout
 router.delete("/:workoutId", workoutController.deleteWorkout);
 
-// Record
-// GET
-router.get("/:workoutId/records", recordController.getRecordForWorkout);
+router.get("/:workoutId/records", recordController.getRecordForWorkout); // GET a record
 
 module.exports = router;

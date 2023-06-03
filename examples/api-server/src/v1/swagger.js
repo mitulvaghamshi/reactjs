@@ -24,7 +24,7 @@ const swaggerDocs = (app, port) => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerSpec);
   });
-  console.log(`API v1 docs: http://localhost:${port}/api/v1/docs`);
+  console.log(`API v1.0 docs: http://localhost:${port}/api/v1/docs`);
 };
 
 module.exports = { swaggerDocs };

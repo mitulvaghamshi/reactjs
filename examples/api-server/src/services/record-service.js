@@ -2,8 +2,7 @@ const record = require("../database/record");
 
 const getRecordForWorkout = (workoutId) => {
   try {
-    const aRecord = record.getRecordForWorkout(workoutId);
-    return aRecord;
+    return record.getRecordForWorkout(workoutId);
   } catch (error) {
     throw error;
   }

@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-const saveToDatabase = (DB) => {
-  fs.writeFileSync("./src/database/json/db.json", JSON.stringify(DB, null, 2), {
+const saveToDatabase = (db) => {
+  fs.writeFileSync("./src/database/json/db.json", JSON.stringify(db, null, 2), {
     encoding: "utf-8",
   });
 };

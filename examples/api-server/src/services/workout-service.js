@@ -3,8 +3,7 @@ const workout = require("../database/workout");
 
 const getAllWorkouts = (filterParams) => {
   try {
-    const allWorkouts = workout.getAllWorkouts(filterParams);
-    return allWorkouts;
+    return workout.getAllWorkouts(filterParams);
   } catch (error) {
     throw error;
   }
@@ -12,8 +11,7 @@ const getAllWorkouts = (filterParams) => {
 
 const getWorkout = (workoutId) => {
   try {
-    const aWorkout = workout.getWorkout(workoutId);
-    return aWorkout;
+    return workout.getWorkout(workoutId);
   } catch (error) {
     throw error;
   }
@@ -28,8 +26,7 @@ const createWorkout = (newWorkout) => {
     updatedAt: timestamp,
   };
   try {
-    const createdWorkout = workout.createWorkout(workoutToInsert);
-    return createdWorkout;
+    return workout.createWorkout(workoutToInsert);
   } catch (error) {
     throw error;
   }
@@ -37,8 +34,7 @@ const createWorkout = (newWorkout) => {
 
 const updateWorkout = (workoutId, changes) => {
   try {
-    const updatedWorkout = workout.updateWorkout(workoutId, changes);
-    return updatedWorkout;
+    return workout.updateWorkout(workoutId, changes);
   } catch (error) {
     throw error;
   }
