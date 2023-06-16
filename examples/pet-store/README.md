@@ -23,6 +23,8 @@ npm run server
 
 ## Preview
 
-![](previews/preview_home.png) ![](previews/preview_add.png)
-![](previews/preview_edit.png) ![](previews/preview_delete.png)
-![](previews/preview_search.png)
+![](../../images/pet-store/preview_home.webp) 
+![](../../images/pet-store/preview_add.webp)
+![](../../images/pet-store/preview_edit.webp) 
+![](../../images/pet-store/preview_delete.webp)
+![](../../images/pet-store/preview_search.webp)
