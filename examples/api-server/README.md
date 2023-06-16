@@ -10,4 +10,4 @@ npm run dev
 
 ## Preview
 
-![](preview.jpeg)
+![](../../images/preview-api-server.webp)
