@@ -23,4 +23,4 @@ deno-create-react-app run
 
 ## Preview
 
-![](preview.png)
+![](../../images/preview-todo-app.webp)
